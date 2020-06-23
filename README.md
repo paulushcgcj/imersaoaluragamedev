@@ -8,7 +8,7 @@ This game was part of the Alura Gamedev Immersion.
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
-## First class
+## First class challenges
 
 - [X] Order [personagem.js](personagem.js) matrix, removing all fixed number and replacing them by a math mumbo jumbo.
 - [ ] Create an account at [codepen.io](https://codepen.io)
@@ -17,3 +17,8 @@ This game was part of the Alura Gamedev Immersion.
 - [X] Clean up image function to make it more clean and organized!
 - [ ] Tag Paulo Silveira on [Twitter](https://twitter.com/paulo_caelum) or [Instagram](https://instagram.com/paulo_hipster), [Juliana Negreiros](https://twitter.com/juunegreiros) and Guilherme Lima on [Twitter](https://twitter.com/guilhermebzlima] or [Instagram](https://www.instagram.com/gui.lima.2020/) with  #ImersaoGameDev so they can check it out!
 
+## Personal Challenges
+
+- [ ] Reduce the canvas size to be inside some other centered component
+- [ ] Make it a PWA (just want to, give me a break -_-)
+- [ ] 1-bit challenge
