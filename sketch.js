@@ -1,13 +1,13 @@
 let definitions = {
   character: {
-    sheet: '/images/character/run.png',
+    sheet: 'images/character/run.png',
     height: 270,
     width: 220,
     proportion: 2
   },
   map: {
-    sheet: '/images/scenes/forest.png',
-    bgMusic: '/sounds/gamesound'
+    sheet: 'images/scenes/forest.png',
+    bgMusic: 'sounds/gamesound'
   }
 };
 
