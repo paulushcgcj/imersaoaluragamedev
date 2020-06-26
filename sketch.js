@@ -39,10 +39,11 @@ function setup() {
     characterSpriteSheet,
     definitions.character.height,
     definitions.character.width,
-    definitions.character.proportion
+    definitions.character.proportion,
+    0
   );
 
-  bgSound.loop();
+  //bgSound.loop();
 }
 
 function draw() {
