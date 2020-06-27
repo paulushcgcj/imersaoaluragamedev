@@ -19,7 +19,7 @@ This game was part of the Alura Gamedev Immersion.
 
 ## Second class challenges
 
-- [ ] Make double jump for only two jumps!
+- [X] Make double jump for only two jumps!
 - [ ] Make a paralax background that appears to be 3D by using two different images. To make this, you need to make the foreground one transparent.
 - [ ] Put some different elements in your game: bees, butterflies, what you think will be cool!
 - [ ] Make a game over screen with steroids, explain what happened and why it loosed.

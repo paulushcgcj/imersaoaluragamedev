@@ -1,20 +1,30 @@
 class Character extends CharacterAnimation {
     constructor(
         spriteSheet,
-        spriteHeight,
-        spriteWidth,
+        spritesPerHeight,
+        spritesPerWidth,
         spriteProportion,
-        xScreenPosition) {
+        xScreenPosition,
+        frameSkip) {
         super(
             spriteSheet,
-            spriteHeight,
-            spriteWidth,
+            spritesPerHeight,
+            spritesPerWidth,
             spriteProportion,
-            xScreenPosition
+            xScreenPosition,
+            frameSkip
         );
+
+        
     }
 
-    move() {
-
+    jump() {
+        if(this.jumpCount < 2){
+            this.jumpSpeed = -30;            
+            this.jumpCount++;
+        }
     }
+
+    
+
 }
