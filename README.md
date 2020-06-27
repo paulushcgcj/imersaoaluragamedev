@@ -27,7 +27,7 @@ This game was part of the Alura Gamedev Immersion.
 ## Third class challenges
 
 - [ ] Make one enemy show at time on screen
-- [ ] Make collision better
+- [X] Make collision better
 - [ ] Make the start screen
 - [ ] Make coins appear on game and as Hipsta grab them, she will acomulate points.
 

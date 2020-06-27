@@ -1,21 +1,17 @@
 class Enemy extends CharacterAnimation {
     constructor(
         spriteSheet,
-        spriteHeight,
-        spriteWidth,
-        spriteProportion,
+        spriteDefinition,
         xScreenPosition,
-        frameSkip) {
+        yScreenVariation) {
         super(
             spriteSheet,
-            spriteHeight,
-            spriteWidth,
-            spriteProportion,
+            spriteDefinition,
             xScreenPosition,
-            frameSkip
+            yScreenVariation
         );
 
-        this.moveSpeed = 5;
+        this.moveSpeed = spriteDefinition.moveSpeed;
     }
 
     move(){

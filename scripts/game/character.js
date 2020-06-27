@@ -1,17 +1,15 @@
 class Character extends CharacterAnimation {
     constructor(
         spriteSheet,
-        spritesPerHeight,
-        spritesPerWidth,
-        spriteProportion,
+        spriteDefinition,
         xScreenPosition,
+        yScreenVariation,
         frameSkip) {
         super(
             spriteSheet,
-            spritesPerHeight,
-            spritesPerWidth,
-            spriteProportion,
+            spriteDefinition,
             xScreenPosition,
+            yScreenVariation,
             frameSkip
         );
 

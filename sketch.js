@@ -1,42 +1,72 @@
 let definitions = {
   character: {
-    sheet: 'images/character/run.png',
-    height: 4,
-    width: 4,
-    proportion: 2
+    sheet: 'images/character/player-run.png',
+    spriteFramesHeight: 1,
+    spriteFramesWidth: 6,
+    spriteFramesProportion: 5,
+    frameSkip: 3,
+    name: 'Hipsta'
   },
   enemy: {
+    sheet: 'images/enemies/oposum.png',
+    spriteFramesHeight: 1,
+    spriteFramesWidth: 6,
+    spriteFramesProportion: 3,
+    moveSpeed: 5,
+    frameSkip: 7,
+    name: 'Jr'
+  },
+  enemy2: {
     sheet: 'images/enemies/droplet.png',
-    height: 7,
-    width: 4,
-    proportion: 2
+    spriteFramesHeight: 7,
+    spriteFramesWidth: 4,
+    spriteFramesProportion: 1,
+    moveSpeed: 2.5,
+    frameSkip: 1,
+    name: 'Poppa'
+  },
+  eagle: {
+    sheet: 'images/enemies/eagle-attack.png',
+    spriteFramesHeight: 1,
+    spriteFramesWidth: 4,
+    spriteFramesProportion: 3,
+    moveSpeed: 7,
+    frameSkip: 4,
+    name: 'Frank'
   },
   map: {
     sheet: 'images/scenes/forest.png',
     bgMusic: 'sounds/gamesound',
-    jumpSound: 'sounds/rakewoosh',
-    gameOverSound: 'sounds/ahhhh'
-  }
+    groundHeight: 30
+  },
+  jumpSound: 'sounds/rakewoosh',
+  gameOverSound: 'sounds/ahhhh',
+  gameOver: 'images/assets/game-over.png'
 };
 
 let sceneImage;
-let characterSpriteSheet;
-let enemySpriteSheet;
+let gameOverImage;
 let scene;
+let gameManager;
+
 let character;
-let enemy;
+let characterSpriteSheet;
+
+let enemySpriteSheet;
+let enemy2SpriteSheet;
+let eagleSpriteSheet;
+
 let bgSound;
 let jumpSound;
 let gameOverSound;
 
+const enemies = [];
+
+const hasSound = false;
+
 function preload() {
-  soundFormats('mp3', 'ogg');
-  bgSound = loadSound(definitions.map.bgMusic);
-  jumpSound = loadSound(definitions.map.jumpSound);
-  gameOverSound = loadSound(definitions.map.gameOverSound);
-  sceneImage = loadImage(definitions.map.sheet);
-  characterSpriteSheet = loadImage(definitions.character.sheet);
-  enemySpriteSheet = loadImage(definitions.enemy.sheet);
+  setGameAudio();
+  setGameSprites();
 }
 
 function mousePressed() {
@@ -45,52 +75,78 @@ function mousePressed() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
   getAudioContext().suspend();
 
+  gameManager = new GameManager();
+
+  //Create the stage
   scene = new Scene(sceneImage, 3);
 
-  character = new Character(
-    characterSpriteSheet,
-    definitions.character.height,
-    definitions.character.width,
-    definitions.character.proportion,
-    0,
-    1
-  );
+  character = new Character(characterSpriteSheet, definitions.character, 0, definitions.map.groundHeight);
 
-  enemy = new Enemy(
-    enemySpriteSheet,
-    definitions.enemy.height,
-    definitions.enemy.width,
-    definitions.enemy.proportion,
-    width,
-    1
-  );
+  enemies.push(new Enemy(enemySpriteSheet, definitions.enemy, width, definitions.map.groundHeight));
+  enemies.push(new Enemy(enemy2SpriteSheet, definitions.enemy2, width - 155, definitions.map.groundHeight));
+  enemies.push(new Enemy(eagleSpriteSheet, definitions.eagle, width, 175));
 
-  //frameRate(40);
-  //bgSound.loop();
+  console.log(enemies.length, enemies);
+  if (hasSound)
+    bgSound.loop();
 }
 
-function keyPressed(){
-  if(key == 'ArrowUp'){
+function keyPressed() {
+  userStartAudio();
+  if (key == 'ArrowUp') {
     character.jump();
-    jumpSound.play();
+    if (hasSound)
+      jumpSound.play();
   }
 }
 
 function draw() {
+
   scene.paralax();
+  gameManager.draw();
+  gameManager.addPoints();
+
+  character.debug();  
   character.draw();
-  enemy.draw();
 
+  enemies.forEach(theEnemy => {
 
-  enemy.move();
-  character.applyGravity();
+    theEnemy.debug();
+    theEnemy.draw();
+    theEnemy.move();
+    
+    if (theEnemy.isColliding(character)) {
 
-  if(character.isColliding(enemy)){
-    console.log('BANG IS OVA');
-    gameOverSound.play();
-    noLoop();
+      console.log(theEnemy.spriteDefinition.name,'collided with',character.spriteDefinition.name);
+
+      image(gameOverImage,width/2-200,height/2);
+      if (hasSound)
+        gameOverSound.play();
+      noLoop();
+    }
   }
+  );
+
+}
+
+
+function setGameAudio() {
+  soundFormats('mp3', 'ogg');
+  bgSound = loadSound(definitions.map.bgMusic);
+  jumpSound = loadSound(definitions.jumpSound);
+  gameOverSound = loadSound(definitions.gameOverSound);
+}
+
+function setGameSprites() {
+
+  sceneImage = loadImage(definitions.map.sheet);
+  gameOverImage = loadImage(definitions.gameOver);
+  
+  characterSpriteSheet = loadImage(definitions.character.sheet);
+  
+  enemySpriteSheet = loadImage(definitions.enemy.sheet);
+  enemy2SpriteSheet = loadImage(definitions.enemy2.sheet);
+  eagleSpriteSheet = loadImage(definitions.eagle.sheet);
 }

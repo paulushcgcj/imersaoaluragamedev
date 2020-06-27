@@ -1,29 +1,29 @@
 class CharacterAnimation {
     constructor(
         spriteSheet,
-        spritesPerHeight,
-        spritesPerWidth,
-        spriteProportion,
+        spriteDefinition,
         xScreenPosition,
-        frameSkip
+        yScreenVariation        
     ) {
 
+        this.spriteDefinition = spriteDefinition;
         this.spriteSheet = spriteSheet;
-        this.spriteHeight = (this.spriteSheet.height / spritesPerHeight);
-        this.spriteWidth = (this.spriteSheet.width / spritesPerWidth);
-        this.spriteProportion = spriteProportion;
+        this.spriteFramesProportion = spriteDefinition.spriteFramesProportion;
+
+        this.spriteHeight = (this.spriteSheet.height / spriteDefinition.spriteFramesHeight);
+        this.spriteWidth = (this.spriteSheet.width / spriteDefinition.spriteFramesWidth);
 
         this.sheetX = 0;
         this.sheetY = 0;
 
-        this.spriteSizeWidth = this.spriteWidth / this.spriteProportion;
-        this.spriteSizeHeight = this.spriteHeight / this.spriteProportion;
+        this.spriteSizeWidth = this.spriteWidth * this.spriteFramesProportion;
+        this.spriteSizeHeight = this.spriteHeight * this.spriteFramesProportion;
 
         this.xScreenPosition = xScreenPosition;
-        this.yScreenPosition = height - (this.spriteHeight / this.spriteProportion);
-        this.yInitialScreenPosition = height - (this.spriteHeight / this.spriteProportion);
+        this.yScreenPosition = height - (this.spriteHeight * this.spriteFramesProportion) - yScreenVariation;
+        this.yInitialScreenPosition = this.yScreenPosition;
 
-        this.frameSkip = frameSkip;
+        this.frameSkip = spriteDefinition.frameSkip;
         this.currentFrame = 0;
 
         this.gravity = 2;
@@ -50,6 +50,7 @@ class CharacterAnimation {
             this.spriteHeight
         );
         this.characterAnimation();
+        this.applyGravity();
         
     }
 
@@ -75,7 +76,7 @@ class CharacterAnimation {
     }
 
     applyGravity() {
-
+        
         this.yScreenPosition += this.jumpSpeed;
         this.jumpSpeed += this.gravity;
 
@@ -87,28 +88,35 @@ class CharacterAnimation {
     }
 
     isColliding(target) {
-        this.debug(this);
-        this.debug(target);
+        
         return collideRectRect(
-            20 + this.xScreenPosition,
-            this.yScreenPosition,
-            (this.spriteWidth / this.spriteProportion) * this.hitBox,
-            this.spriteHeight / this.spriteProportion,
+            this.myRectangle().x,
+            this.myRectangle().y,
+            this.myRectangle().width,
+            this.myRectangle().height,
 
-            20 + target.xScreenPosition,
-            target.yScreenPosition,
-            target.spriteWidth / this.spriteProportion,
-            target.spriteHeight / this.spriteProportion
+            target.myRectangle().x,
+            target.myRectangle().y,
+            target.myRectangle().width,
+            target.myRectangle().height
         );
     }
 
-    debug(target){
-        noFill();
+    myRectangle(){
+        return {
+            x: 20 + this.xScreenPosition,
+            y: this.yScreenPosition + 30,
+            width: (this.spriteWidth* this.spriteFramesProportion) * this.hitBox,
+            height: (this.spriteHeight * this.spriteFramesProportion) - 30
+        }
+    }
+
+    debug(){        
         rect(
-            20 + target.xScreenPosition,
-            target.yScreenPosition,
-            (target.spriteWidth / target.spriteProportion) * target.hitBox,
-            target.spriteHeight / target.spriteProportion);
+            this.myRectangle().x,
+            this.myRectangle().y,
+            this.myRectangle().width,
+            this.myRectangle().height);
     }
 
     /*
