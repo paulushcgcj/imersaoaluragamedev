@@ -1,3 +1,6 @@
+scripts:
+  - scripts/**/*
+  
 scenes:
   - scripts/scenes/**/*
 
@@ -9,3 +12,12 @@ assets:
   
 sounds:
   - sounds/**/*
+
+automation:
+  - .github/**/*
+  
+documentation:
+  - **/*.md
+  
+test:
+  - **/*.spec.js
