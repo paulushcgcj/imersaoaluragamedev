@@ -12,3 +12,6 @@ sounds:
 
 automation:
   - .github/**/*
+  
+documentation:
+  - **/*.md
