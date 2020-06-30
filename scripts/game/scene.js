@@ -3,7 +3,7 @@ class Scene {
       this.image = image;
       this.speed = speed;
       this.x1 = 0;
-      this.x2 = width;
+      this.x2 = width;      
     }
   
     draw() {
