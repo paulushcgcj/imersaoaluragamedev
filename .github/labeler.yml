@@ -9,3 +9,6 @@ assets:
   
 sounds:
   - sounds/**/*
+
+automation:
+  - .github/**/*
