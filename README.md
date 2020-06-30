@@ -6,7 +6,10 @@ This game was part of the Alura Gamedev Immersion.
 
 ## Kudos
 
-<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+This section is to give some kudos to some places where I got assets:
+
+
+- Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 
 ## First class challenges
 
