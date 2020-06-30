@@ -1,24 +1,30 @@
 class Enemy extends CharacterAnimation {
-    constructor(
-        spriteSheet,
-        spriteDefinition,
+    constructor(        
+        definitions,
         xScreenPosition,
         yScreenVariation) {
-        super(
-            spriteSheet,
-            spriteDefinition,
+        super(            
+            definitions,
             xScreenPosition,
             yScreenVariation
         );
 
-        this.moveSpeed = spriteDefinition.moveSpeed;
+        this.moveSpeed = definitions.moveSpeed;
+
     }
 
-    move(){
-        this.xScreenPosition -= this.moveSpeed;
+    setup(){
+        super.setup();
+        this.xScreenPosition = width + this.spriteSizeWidth;        
+    }
 
-        if(this.xScreenPosition < -(this.spriteSizeWidth * 2)){
-            this.xScreenPosition = width + (this.spriteSizeWidth * 2);
+    move() {
+        if (this.visible) {
+            this.xScreenPosition -= this.moveSpeed;
+
+            if (this.isOutOfBounds()) {                
+                this.xScreenPosition = width + (this.spriteSizeWidth * 2);
+            }
         }
     }
 }

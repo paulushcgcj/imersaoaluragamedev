@@ -1,20 +1,22 @@
 class Character extends CharacterAnimation {
-    constructor(
-        spriteSheet,
-        spriteDefinition,
+    constructor(        
+        definitions,
         xScreenPosition,
-        yScreenVariation,
-        frameSkip) {
-        super(
-            spriteSheet,
-            spriteDefinition,
+        yScreenVariation) {
+        super(            
+            definitions,
             xScreenPosition,
-            yScreenVariation,
-            frameSkip
+            yScreenVariation
         );
 
-        
+        this.jumpSound = null;
+
     }
+
+preLoad(){
+    super.preLoad();
+    this.jumpSound = loadSound(this.spriteDefinition.jumpSound);
+}
 
     jump() {
         if(this.jumpCount < 2){
@@ -23,6 +25,13 @@ class Character extends CharacterAnimation {
         }
     }
 
+    playerControl(){
+        if (key == 'ArrowUp') {
+            if(this.jumpCount < 2)    
+                this.jumpSound.play();
+            this.jump();        
+          }
+    }
     
 
 }
