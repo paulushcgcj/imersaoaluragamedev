@@ -1,0 +1,11 @@
+scenes:
+  - scripts/scenes/**/*
+
+game:
+  - scripts/game/**/*
+  
+assets:
+  - images/**/*
+  
+sounds:
+  - sounds/**/*
