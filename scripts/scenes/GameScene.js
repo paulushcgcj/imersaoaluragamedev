@@ -1,19 +1,22 @@
 class GameScene extends Scene {
-    constructor(map, character, enemies) {
-        super(map.sheet);
-        this.map = map;
+    constructor(gameDefinitions) {
+        super(gameDefinitions.map);
+        this.map = gameDefinitions.map;
 
         this.xPositionSecondBG = 0;
 
         this.currentEnemy = 0;
-        this.gameManager = new GameManager();
+        this.gameManager = new GameManager(gameDefinitions.overal);
 
-        this.character = new Character(character, 0, map.groundHeight);
+        this.character = new Character(gameDefinitions.character, 0, gameDefinitions.map.groundHeight);
 
-        this.enemies = enemies.map(enemy => new Enemy(enemy, 0, map.groundHeight));
+        this.enemies = gameDefinitions.enemies.map(enemy => new Enemy(enemy, 0, enemy.groundHeight ? enemy.groundHeight : gameDefinitions.map.groundHeight));
+
+        
     }
 
     setup() {
+        super.setup();
         this.xPositionSecondBG = width;
         this.gameManager.setup();
         this.character.setup();
@@ -25,8 +28,10 @@ class GameScene extends Scene {
 
     preLoad() {
         super.preLoad()
+        this.gameManager.preLoad();
         this.character.preLoad();
         this.enemies.forEach(element => element.preLoad());
+        
     }
 
     draw() {
@@ -36,10 +41,9 @@ class GameScene extends Scene {
         this.gameManager.draw();
         this.gameManager.addPoints();
 
-        this.character.debug();
+        //this.character.debug();
         this.character.draw();
-        this.drawEnemies();
-
+        this.drawEnemies();        
     }
 
     drawGameScreen() {
@@ -51,13 +55,20 @@ class GameScene extends Scene {
 
     drawEnemies() {
         let theEnemy = this.enemies[this.currentEnemyIndex()];        
-        theEnemy.debug();
+        //theEnemy.debug();
         theEnemy.draw();
         theEnemy.move();
+
+        if(theEnemy.isColliding(this.character)){
+            this.bgSound.setVolume(.1);
+            this.gameManager.gameOver();
+        }
 
         if (!theEnemy.visible) {
             this.enemies[this.nextEnemyIndex()].visible = true;
         }
+
+        
     }
 
     paralax() {

@@ -1,20 +1,34 @@
 class Scene {
-  constructor(sceneSpriteSheet) {
+  constructor(sceneDefinitions) {
     this.image = null;
-    this.sceneSpriteSheet = sceneSpriteSheet;
+    this.bgSound = null;
+
     this.xPosition = 0;
+
+    this.sceneSpriteSheet = sceneDefinitions.sheet;
+    this.sceneSound = sceneDefinitions.bgMusic;
+  }
+
+  setup() {
+    if (this.bgSound){
+      this.bgSound.setVolume(.3);
+      this.bgSound.loop();
+    }
   }
 
   preLoad() {
-    
-    this.image = loadImage(this.sceneSpriteSheet);
+    if (this.sceneSpriteSheet)
+      this.image = loadImage(this.sceneSpriteSheet);
+    if (this.sceneSound)
+      this.bgSound = loadSound(this.sceneSound);
   }
 
-  draw() { 
-    image(this.image, this.xPosition, 0, width, height);
+  draw() {
+    if (this.image)
+      image(this.image, this.xPosition, 0, width, height);
   }
 
-  sceneInputs(){
+  sceneInputs() {
 
   }
 
