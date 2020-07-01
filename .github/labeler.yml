@@ -17,7 +17,7 @@ automation:
   - .github/**/*
   
 documentation:
-  - **/*.md
+  - *.md
   
 test:
-  - **/*.spec.js
+  - scripts/**/*.spec.js
