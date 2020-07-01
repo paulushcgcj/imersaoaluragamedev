@@ -1,14 +1,22 @@
 class GameManager {
-    constructor() {
+    constructor(definitions) {
         this.currentEnemy = 0;
         this.points = 0;
-
+        this.gameOverImage;
+        this.gameOverSound;
+        this.definitions = definitions;
+        this.gameEnded = false;
     }
 
     setup() {
         textAlign(RIGHT);
         fill('#fff');
         textSize(50);
+    }
+
+    preLoad() {
+        this.gameOverSound = loadSound(this.definitions.gameOverSound);
+        this.gameOverImage = loadImage(this.definitions.gameOver);
     }
 
     draw() {
@@ -23,13 +31,10 @@ class GameManager {
         this.points += points;
     }
 
-
-
-    gameOver(theEnemy, character, gameOverSound, gameOverImage) {
-        console.log(theEnemy.spriteDefinition.name, 'collided with', character.spriteDefinition.name);
-        image(gameOverImage, width / 2 - 200, height / 2);
-        if (hasSound)
-            gameOverSound.play();
+    gameOver() {
+        this.gameEnded = true;
+        image(this.gameOverImage, width / 2 - 200, height / 2);
+        this.gameOverSound.play();
         noLoop();
     }
 

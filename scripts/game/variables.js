@@ -1,7 +1,7 @@
 let definitions = {
     character: {
         sheet: 'images/character/player-run.png',
-        jumpSound: 'sounds/rakewoosh',
+        jumpSound: 'sounds/jump.ogg',
         spriteFramesHeight: 1,
         spriteFramesWidth: 6,
         spriteFramesProportion: 5,
@@ -15,7 +15,7 @@ let definitions = {
             spriteFramesWidth: 6,
             spriteFramesProportion: 3,
             moveSpeed: 5,
-            frameSkip: 7,
+            frameSkip: 7,            
             name: 'Jr'
         },
         {
@@ -34,27 +34,21 @@ let definitions = {
             spriteFramesProportion: 3,
             moveSpeed: 7,
             frameSkip: 4,
-            name: 'Frank'
+            name: 'Frank',
+            groundHeight: 150
         }
     ],
     map: {
         sheet: 'images/scenes/forest.png',
-        bgMusic: 'sounds/gamesound',
+        bgMusic: 'sounds/gamesound.ogg',
         groundHeight: 30,
         mapSpeed: 3
     },
-
-    gameOverSound: 'sounds/ahhhh',
-    gameOver: 'images/assets/game-over.png'
+    overal:{
+        gameOverSound: 'sounds/gameover',
+        gameOver: 'images/assets/game-over.png'
+    }
 };
 
 
-let gameOverImage;
-let scene = new GameScene(definitions.map, definitions.character,definitions.enemies);
-
-let bgSound;
-let gameOverSound;
-
-const enemies = [];
-
-const hasSound = false;
+let scene = new GameScene(definitions);
